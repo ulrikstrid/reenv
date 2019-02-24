@@ -1,5 +1,7 @@
 # reenv
 
+[![Build Status](https://strid.visualstudio.com/OSS/_apis/build/status/ulrikstrid.reenv?branchName=master)](https://strid.visualstudio.com/OSS/_build/latest?definitionId=23&branchName=master)
+
 Minimal dotenv-cli implementation in ReasonML.
 
 ## Usage
