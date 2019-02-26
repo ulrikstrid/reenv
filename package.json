@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "description": "dotenv-cli written in reason",
   "esy": {
-    "build": "pesy",
+    "build": "refmterr dune build --profile=release",
     "release": {
       "releasedBinaries": [
         "reenv.exe"

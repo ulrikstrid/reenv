@@ -7,5 +7,5 @@
    (name Reenv)
    ; Other libraries list this name in their package.json 'require' field to use this library.
    (public_name reenv.lib)
-   (libraries  unix str )
+   (libraries  unix str)
 )
