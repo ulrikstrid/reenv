@@ -15,6 +15,8 @@ jobs:
       - script: "esy install"
         displayName: "esy install"
       - script: "esy build"
+        displayName: "esy pesy"
+      - script: "esy build"
         displayName: "esy build"
       - template: utils/create-docs.yml
       - script: "esy test"
