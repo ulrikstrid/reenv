@@ -38,11 +38,15 @@ fs.writeFileSync(
   }
 );
 
-console.log("Copying LICENSE");
-fs.copyFileSync(
-  path.join(__dirname, "..", "MIT-LICENSE"),
-  path.join(__dirname, "..", "_release", "LICENSE")
-);
+try {
+  console.log("Copying LICENSE");
+  fs.copyFileSync(
+    path.join(__dirname, "..", "LICENSE"),
+    path.join(__dirname, "..", "_release", "LICENSE")
+  );
+} catch (e) {
+  console.warn("No LICENSE found");
+}
 
 console.log("Copying README.md");
 fs.copyFileSync(
