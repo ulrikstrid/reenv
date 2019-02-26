@@ -14,7 +14,7 @@ jobs:
       - template: utils/use-esy.yml
       - script: "esy install"
         displayName: "esy install"
-      - script: "esy build"
+      - script: "esy pesy"
         displayName: "esy pesy"
       - script: "esy build"
         displayName: "esy build"
