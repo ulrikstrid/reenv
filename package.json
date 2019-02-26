@@ -36,7 +36,8 @@
   },
   "scripts": {
     "pesy": "bash -c 'env PESY_MODE=update pesy'",
-    "test": "esy x TestReenv.exe"
+    "test": "esy x TestReenv.exe",
+    "doc": "esy dune build @doc"
   },
   "dependencies": {
     "@opam/dune": ">=1.6.0",
@@ -46,6 +47,7 @@
     "pesy": "*"
   },
   "devDependencies": {
-    "@opam/merlin": "*"
+    "@opam/merlin": "*",
+    "@opam/odoc": "*"
   }
 }
