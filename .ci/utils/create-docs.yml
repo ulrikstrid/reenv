@@ -3,6 +3,7 @@ steps:
   - script: "esy doc"
     displayName: "Build docs"
     condition: and(succeeded(), eq(variables['Agent.OS'], 'Linux'))
+    continueOnError: true
 
   - script: echo '##vso[task.setvariable variable=docsPath]'$(esy echo '#{self.target_dir}/default/_doc/_html')
     displayName: "Save docsPath in variable"
@@ -11,6 +12,7 @@ steps:
   - task: PublishBuildArtifacts@1
     displayName: "Publish Artifact: Docs"
     condition: and(succeeded(), eq(variables['Agent.OS'], 'Linux'))
+    continueOnError: true
     inputs:
       PathtoPublish: $(docsPath)
       ArtifactName: Docs
