@@ -9,8 +9,8 @@ steps:
       artifactName: ${{ parameters.platform }}
       downloadPath: $(Build.StagingDirectory)
 
-  - script: "mkdir $(Build.StagingDirectory)/_release/${{ parameters.folder }}"
-    displayName: "Create $(Build.StagingDirectory)/_release/${{ parameters.folder }}"
+  - script: "mkdir _release/${{ parameters.folder }}"
+    displayName: "Create _release/${{ parameters.folder }}"
 
-  - script: "cp -r $(Build.StagingDirectory)/${{ parameters.platform }}/ $(Build.StagingDirectory)/_release/${{ parameters.folder }}"
+  - script: "cp -r $(Build.StagingDirectory)/${{ parameters.platform }} _release/${{ parameters.folder }}"
     displayName: "cp ${{ parameters.platform }}"

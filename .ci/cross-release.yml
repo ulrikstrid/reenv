@@ -1,7 +1,7 @@
 steps:
   - template: utils/use-node.yml
 
-  - script: "mkdir $(Build.StagingDirectory)/_release"
+  - script: "mkdir _release"
     displayName: "Create _release dir"
 
   - template: release-platform-setup.yml
@@ -26,5 +26,5 @@ steps:
   - task: PublishBuildArtifacts@1
     displayName: "Publish Artifact: Release"
     inputs:
-      PathtoPublish: "$(Build.StagingDirectory)/_release"
+      PathtoPublish: "_release"
       ArtifactName: Release
