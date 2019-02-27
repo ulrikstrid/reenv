@@ -31,3 +31,33 @@ jobs:
       demands: node.js
     steps:
       - template: .ci/cross-release.yml
+
+  - job: TestReleaseLinux
+    displayName: Test Release Linux
+    dependsOn:
+      - Release
+    pool:
+      vmImage: ubuntu-16.04
+      demands: node.js
+    steps:
+      - template: .ci/test-release.yml
+
+  - job: TestReleasOsX
+    displayName: Test Release osX
+    dependsOn:
+      - Release
+    pool:
+      vmImage: macOS-10.13
+      demands: node.js
+    steps:
+      - template: .ci/test-release.yml
+
+  - job: TestReleaseWindows
+    displayName: Test Release Windows
+    dependsOn:
+      - Release
+    pool:
+      vmImage: vs2017-win2016
+      demands: node.js
+    steps:
+      - template: .ci/test-release.yml

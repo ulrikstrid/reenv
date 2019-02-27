@@ -1,0 +1,19 @@
+steps:
+  - template: utils/use-node.yml
+
+  - task: DownloadBuildArtifacts@0
+    displayName: "Download Release Artifacts"
+    inputs:
+      artifactName: Release
+      downloadPath: $(Build.StagingDirectory)
+
+  - script: npm pack .
+    displayName: Package the build
+    workingDirectory: $(Build.StagingDirectory)/Release
+
+  - script: npm -g install reenv-0.1.1.tgz
+    displayName: Install the package
+    workingDirectory: $(Build.StagingDirectory)/Release
+
+  - script: reenv.exe test/.env node test/index.js
+    displayName: Test if command installed successfully
