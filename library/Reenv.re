@@ -6,18 +6,7 @@ let main = argv => {
     Util.readUntilEndOfFile(open_in_bin(envFile))
     |> List.filter(s => String.contains(s, '='))
     |> List.map(String.split_on_char('='))
-    |> List.map(l =>
-         switch (l) {
-         | [name, ...value] =>
-           let fixedValue =
-             value
-             |> String.concat("=")
-             |> Util.trimCitation
-             |> Util.replaceNewline;
-           name ++ "=" ++ fixedValue;
-         | [] => String.concat("", l) // This should never happen
-         }
-       )
+    |> List.map(Util.escapeEquals)
     |> Array.of_list
     |> Array.append(Unix.environment())
     |> (

@@ -20,3 +20,12 @@ let trimCitation = str =>
 let replaceNewline = str => {
   Str.global_replace(Str.regexp("\\\\n"), "\n", str);
 };
+
+let escapeEquals = line =>
+  switch (line) {
+  | [name, ...value] =>
+    let fixedValue =
+      value |> String.concat("=") |> trimCitation |> replaceNewline;
+    name ++ "=" ++ fixedValue;
+  | [] => String.concat("", line) // This should never happen
+  };

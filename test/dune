@@ -7,5 +7,5 @@
    (name TestReenv)  ;  From package.json main field
    ; The name of the executable (runnable via esy x TestReenv.exe) 
    (public_name TestReenv.exe)  ;  From package.json name field
-   (libraries  reenv.lib ) ;  From package.json require field (array of strings)
+   (libraries  rely.lib reenv.lib ) ;  From package.json require field (array of strings)
 )
