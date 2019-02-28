@@ -15,5 +15,5 @@ steps:
     displayName: Install the package
     workingDirectory: $(Build.StagingDirectory)/Release
 
-  - script: reenv.exe test/.env node test/index.js
+  - script: reenv test/.env node test/index.js
     displayName: Test if command installed successfully
