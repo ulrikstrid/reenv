@@ -61,9 +61,9 @@ fs.copyFileSync(
 );
 
 console.log("Creating placeholder files");
-const placeholderFile = `#!/usr/bin/env node
-
-console.log("You need to have postinstall enabled")`;
+const placeholderFile = `:; echo "You need to have postinstall enabled"; exit $?
+@ECHO OFF
+ECHO You need to have postinstall enabled`;
 fs.mkdirSync(path.join(__dirname, "..", "_release", "bin"));
 const binPath = path.join(
   __dirname,
