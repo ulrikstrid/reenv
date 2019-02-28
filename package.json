@@ -1,12 +1,12 @@
 {
   "name": "reenv",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "dotenv-cli written in reason",
   "esy": {
-    "build": "pesy",
+    "build": "dune build",
     "release": {
       "bin": [
-        "reenv.exe"
+        "reenv"
       ]
     }
   },
