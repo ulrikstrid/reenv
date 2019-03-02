@@ -3,7 +3,7 @@
   "version": "0.1.2",
   "description": "dotenv-cli written in reason",
   "esy": {
-    "build": "dune build",
+    "build": "dune build -p #{self.name}",
     "release": {
       "bin": [
         "reenv"

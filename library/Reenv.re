@@ -20,9 +20,16 @@ let main = argv => {
        )
     |> Array.of_list
     |> Array.append(Unix.environment())
-    |> Unix.execvpe(program, programArgs);
+    |> (
+      env =>
+        try (Unix.execvpe(program, programArgs, env)) {
+        | Unix.Unix_error(error, _method, _program) =>
+          print_endlie("Got error: " ++ Unix.error_message(error));
+          exit(1);
+        }
+    );
   | _ =>
-    at_exit(() => print_endline("Not enough arguments"));
+    print_endline("Not enough arguments");
     exit(1);
   };
 };
