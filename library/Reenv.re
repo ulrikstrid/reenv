@@ -24,7 +24,7 @@ let main = argv => {
       env =>
         try (Unix.execvpe(program, programArgs, env)) {
         | Unix.Unix_error(error, _method, _program) =>
-          print_endlie("Got error: " ++ Unix.error_message(error));
+          print_endline("Got error: " ++ Unix.error_message(error));
           exit(1);
         }
     );
