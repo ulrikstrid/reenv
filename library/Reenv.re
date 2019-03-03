@@ -1,13 +1,21 @@
+type t = array(string);
+
+let tOfInChannel = ic =>
+  Util.readUntilEndOfFile(ic)
+  |> List.filter(s => String.contains(s, '='))
+  |> List.map(String.split_on_char('='))
+  |> List.map(Util.escapeEquals)
+  |> Array.of_list;
+
+let arrayOft: t => array(string) = t => t;
+
 let main = argv => {
   switch (argv) {
   | [_, envFile, program, ...programArgs] =>
     let programArgs = Array.of_list([program, ...programArgs]);
 
-    Util.readUntilEndOfFile(open_in_bin(envFile))
-    |> List.filter(s => String.contains(s, '='))
-    |> List.map(String.split_on_char('='))
-    |> List.map(Util.escapeEquals)
-    |> Array.of_list
+    open_in_bin(envFile)
+    |> tOfInChannel
     |> Array.append(Unix.environment())
     |> (
       env =>
