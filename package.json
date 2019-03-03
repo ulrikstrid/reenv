@@ -3,7 +3,7 @@
   "version": "0.1.2",
   "description": "dotenv-cli written in reason",
   "esy": {
-    "build": "dune build -p #{self.name}",
+    "build": "dune build",
     "release": {
       "bin": [
         "reenv"
@@ -13,6 +13,7 @@
   "buildDirs": {
     "test": {
       "require": [
+        "rely.lib",
         "reenv.lib"
       ],
       "main": "TestReenv",
@@ -40,14 +41,17 @@
     "doc": "esy dune build @doc"
   },
   "dependencies": {
-    "@opam/dune": ">=1.6.0",
-    "@esy-ocaml/reason": "*",
+    "@opam/dune": "*",
+    "@esy-ocaml/reason": ">= 3.4.0 < 3.5.0",
     "refmterr": "*",
     "ocaml": "^4.4.0",
-    "pesy": "*"
+    "pesy": "*",
+    "@reason-native/pastel": "*",
+    "@reason-native/rely": "*"
   },
   "devDependencies": {
     "@opam/merlin": "*",
+    "ocaml": "~4.6.0",
     "@opam/odoc": "*"
   }
 }
