@@ -5,9 +5,11 @@ describe("readUntilEndOfFile", utils =>
     let file = open_in_bin("./test/.env");
     let rows = Reenv.Util.readUntilEndOfFile(file);
 
-    expect.list(rows).toContainEqual("TEST=\"hello\\nworld!\"");
-    expect.list(rows).toContainEqual("TEST2=hello world?");
-    expect.list(rows).toContainEqual("TEST3=\"hello=world\"");
+    expect.list(rows).toEqual([
+      {|TEST="hello world!"|},
+      {|TEST2=hello world?|},
+      {|TEST3="hello=world"|},
+    ]);
   })
 );
 

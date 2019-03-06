@@ -32,7 +32,7 @@
       "dependencies": [
         "refmterr@3.1.10@d41d8cd9", "pesy@0.4.1@d41d8cd9",
         "ocaml@4.6.10@d41d8cd9", "@reason-native/rely@1.2.0@d41d8cd9",
-        "@reason-native/pastel@0.2.0@d41d8cd9",
+        "@reason-native/pastel@0.2.1@d41d8cd9",
         "@opam/dune@opam:1.7.3@72aad784", "@esy-ocaml/reason@3.4.0@d41d8cd9"
       ],
       "devDependencies": [
@@ -81,20 +81,20 @@
       "overrides": [],
       "dependencies": [
         "refmterr@3.1.10@d41d8cd9", "ocaml@4.6.10@d41d8cd9",
-        "@reason-native/pastel@0.2.0@d41d8cd9",
-        "@reason-native/file-context-printer@0.0.2@d41d8cd9",
+        "@reason-native/pastel@0.2.1@d41d8cd9",
+        "@reason-native/file-context-printer@0.0.3@d41d8cd9",
         "@opam/dune@opam:1.7.3@72aad784", "@esy-ocaml/reason@3.4.0@d41d8cd9"
       ],
       "devDependencies": []
     },
-    "@reason-native/pastel@0.2.0@d41d8cd9": {
-      "id": "@reason-native/pastel@0.2.0@d41d8cd9",
+    "@reason-native/pastel@0.2.1@d41d8cd9": {
+      "id": "@reason-native/pastel@0.2.1@d41d8cd9",
       "name": "@reason-native/pastel",
-      "version": "0.2.0",
+      "version": "0.2.1",
       "source": {
         "type": "install",
         "source": [
-          "archive:https://registry.npmjs.org/@reason-native/pastel/-/pastel-0.2.0.tgz#sha1:90d6afacf90db0350705c08d151043ca96dcea10"
+          "archive:https://registry.npmjs.org/@reason-native/pastel/-/pastel-0.2.1.tgz#sha1:c790b51e963ac94a0de141be0a8e4d077905978b"
         ]
       },
       "overrides": [],
@@ -104,19 +104,19 @@
       ],
       "devDependencies": []
     },
-    "@reason-native/file-context-printer@0.0.2@d41d8cd9": {
-      "id": "@reason-native/file-context-printer@0.0.2@d41d8cd9",
+    "@reason-native/file-context-printer@0.0.3@d41d8cd9": {
+      "id": "@reason-native/file-context-printer@0.0.3@d41d8cd9",
       "name": "@reason-native/file-context-printer",
-      "version": "0.0.2",
+      "version": "0.0.3",
       "source": {
         "type": "install",
         "source": [
-          "archive:https://registry.npmjs.org/@reason-native/file-context-printer/-/file-context-printer-0.0.2.tgz#sha1:effbcb6db360cca9ac293a0075bc0d5912bd0ce0"
+          "archive:https://registry.npmjs.org/@reason-native/file-context-printer/-/file-context-printer-0.0.3.tgz#sha1:b92eec7b10107ccb27528f9eea9bb51252bca491"
         ]
       },
       "overrides": [],
       "dependencies": [
-        "ocaml@4.6.10@d41d8cd9", "@reason-native/pastel@0.2.0@d41d8cd9",
+        "ocaml@4.6.10@d41d8cd9", "@reason-native/pastel@0.2.1@d41d8cd9",
         "@opam/re@opam:1.8.0@7baac1a7", "@opam/dune@opam:1.7.3@72aad784",
         "@esy-ocaml/reason@3.4.0@d41d8cd9"
       ],
