@@ -8,4 +8,5 @@
    ; The name of the executable (runnable via esy x reenv.exe) 
    (public_name reenv)  ;  From package.json name field
    (libraries  reenv.lib ) ;  From package.json require field (array of strings)
+   (package reenv)
 )
