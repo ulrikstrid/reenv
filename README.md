@@ -15,32 +15,32 @@
 ## simple benchmarks
 
 ```
-Ulriks-MBP:reenv ulrik$ time reenv .env node index.js
-hello
-world!
-hello world?
-hello=world
-
-real    0m0.082s
-user    0m0.060s
-sys     0m0.017s
-Ulriks-MBP:reenv ulrik$ time dotenv node index.js
-hello
-world!
+Ulriks-MBP:reenv ulrik$ time dotenv -e test/.env node test/index.js
+hello world!
 hello world?
 hello=world
 
 real    0m0.152s
 user    0m0.118s
 sys     0m0.031s
-Ulriks-MBP:reenv ulrik$ time node index.js
-undefined
-undefined
-undefined
 
-real    0m0.080s
-user    0m0.059s
-sys     0m0.017s
+Ulriks-MBP:reenv ulrik$ time reenv test/.env node test/index.js
+hello world!
+hello world?
+hello=world
+
+real    0m0.076s
+user    0m0.056s
+sys     0m0.015s
+
+Ulriks-MBP:reenv ulrik$ time TEST=a TEST2=b TEST3=c node test/index.js
+a
+b
+c
+
+real    0m0.070s
+user    0m0.053s
+sys     0m0.014s
 ```
 
 ## Developing:
