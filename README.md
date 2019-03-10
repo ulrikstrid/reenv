@@ -4,6 +4,12 @@
 
 [dotenv-cli](https://github.com/entropitor/dotenv-cli) implementation in ReasonML. The goal is to have feature parity with [dotenv](https://github.com/motdotla/dotenv) but be implemented in Reason. If there is a feature missing please log an issue.
 
+## Installation
+
+reenv is available on all mainstream desktop platforms (Windows, macOS and Linux) and is installable via `npm`.
+
+`npm install -g reenv`
+
 ## Usage
 
 ```
@@ -39,7 +45,7 @@ real    0m0.152s
 user    0m0.118s
 sys     0m0.031s
 
-Ulriks-MBP:reenv ulrik$ time reenv test/.env node test/index.js
+Ulriks-MBP:reenv ulrik$ time reenv -e test/.env node test/index.js
 hello world!
 hello world?
 hello=world
