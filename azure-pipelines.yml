@@ -1,7 +1,14 @@
 name: $(Build.BuildId)
 
 trigger:
-  - master
+  branches:
+    include:
+      - master
+
+pr:
+  branches:
+    include:
+      - master
 
 jobs:
   - template: .ci/build-platform.yml
@@ -29,35 +36,40 @@ jobs:
     pool:
       vmImage: ubuntu-16.04
       demands: node.js
+    # Only run if this is not a PullRequest
+    condition: and(succeeded(), ne(variables['Build.Reason'], 'PullRequest'))
     steps:
       - template: .ci/cross-release.yml
 
-  # - job: TestReleaseLinux
-  #   displayName: Test Release Linux
-  #   dependsOn:
-  #     - Release
-  #   pool:
-  #     vmImage: ubuntu-16.04
-  #     demands: node.js
-  #   steps:
-  #     - template: .ci/test-release.yml
+  - job: TestReleaseLinux
+    displayName: Test Release Linux
+    dependsOn:
+      - Release
+    pool:
+      vmImage: ubuntu-16.04
+      demands: node.js
+    condition: and(succeeded(), startsWith(variables['Build.SourceBranch'], 'refs/tags'))
+    steps:
+      - template: .ci/test-release.yml
 
-  # - job: TestReleasOsX
-  #   displayName: Test Release osX
-  #   dependsOn:
-  #     - Release
-  #   pool:
-  #     vmImage: macOS-10.13
-  #     demands: node.js
-  #   steps:
-  #     - template: .ci/test-release.yml
+  - job: TestReleasOsX
+    displayName: Test Release osX
+    dependsOn:
+      - Release
+    pool:
+      vmImage: macOS-10.13
+      demands: node.js
+    condition: and(succeeded(), startsWith(variables['Build.SourceBranch'], 'refs/tags'))
+    steps:
+      - template: .ci/test-release.yml
 
-  # - job: TestReleaseWindows
-  #   displayName: Test Release Windows
-  #   dependsOn:
-  #     - Release
-  #   pool:
-  #     vmImage: vs2017-win2016
-  #     demands: node.js
-  #   steps:
-  #     - template: .ci/test-release.yml
+  - job: TestReleaseWindows
+    displayName: Test Release Windows
+    dependsOn:
+      - Release
+    pool:
+      vmImage: vs2017-win2016
+      demands: node.js
+    condition: and(succeeded(), startsWith(variables['Build.SourceBranch'], 'refs/tags'))
+    steps:
+      - template: .ci/test-release.yml

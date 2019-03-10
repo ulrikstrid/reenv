@@ -11,7 +11,7 @@ steps:
     displayName: Package the build
     workingDirectory: $(Build.StagingDirectory)/Release
 
-  - script: npm -g install reenv-0.1.2.tgz
+  - script: npm -g install reenv-$(Build.SourceBranchName).tgz
     displayName: Install the package
     workingDirectory: $(Build.StagingDirectory)/Release
 
