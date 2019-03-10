@@ -6,6 +6,8 @@ let t_of_in_channel = (t, ic) => {
   |> List.map(String.split_on_char('='))
   |> List.map(Util.escapeEquals)
   |> List.iter(((key, value)) => Hashtbl.replace(t, key, value));
+
+  t;
 };
 
 let array_of_t: t => array(string) =
@@ -14,10 +16,15 @@ let array_of_t: t => array(string) =
     |> Array.of_list;
   };
 
+let make = (): t => Hashtbl.create(64);
+
+let get_opt = (key, t) => Hashtbl.find_opt(t, key);
+let get_exn = (key, t) => Hashtbl.find(t, key);
+
 let main = (~envFiles, ~command, argv) => {
   let programArgs = Array.of_list([command, ...argv]);
 
-  let t: t = Hashtbl.create(64);
+  let t: t = make();
 
   Unix.environment()
   |> Array.map(s =>

@@ -13,9 +13,10 @@ describe("readUntilEndOfFile", utils =>
   })
 );
 
-
-describe("escapeEquals", (utils) => {
+describe("escapeEquals", utils =>
   utils.test("works as expected", ({expect}) => {
-    expect.string(Reenv.Util.escapeEquals(["test", "test", "test"])).toEqual("test=test=test");
-  });
-})
+    let (key, value) = Reenv.Util.escapeEquals(["test", "test", "test"]);
+    expect.string(key).toEqual("test");
+    expect.string(value).toEqual("test=test");
+  })
+);

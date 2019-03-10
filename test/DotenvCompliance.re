@@ -18,13 +18,10 @@ describe("dotenv compliance", utils => {
   utils.test("BASIC=basic is same as BASIC=\"basic\"", ({expect}) => {
     let env =
       open_in_bin("./fixtures/.env.quotes")
-      |> Reenv.tOfInChannel
-      |> Reenv.arrayOft;
+      |> Reenv.t_of_in_channel(Reenv.make())
+      |> Reenv.get_exn("BASIC");
 
-    let first = env[0];
-    let second = env[1];
-
-    expect.string(first).toEqual(second);
+    expect.string(env).toEqual("basic");
   });
 
   utils.test(
@@ -32,13 +29,10 @@ describe("dotenv compliance", utils => {
     ({expect}) => {
     let env =
       open_in_bin("./fixtures/.env.empty")
-      |> Reenv.tOfInChannel
-      |> Reenv.arrayOft;
+      |> Reenv.t_of_in_channel(Reenv.make())
+      |> Reenv.get_exn("EMPTY");
 
-    let first = env[0];
-    let second = env[1];
-
-    expect.string(first).toEqual(second);
+    expect.string(env).toEqual("");
   });
 
   utils.test(
@@ -46,26 +40,20 @@ describe("dotenv compliance", utils => {
     ({expect}) => {
       let env =
         open_in_bin("./fixtures/.env.single_quotes")
-        |> Reenv.tOfInChannel
-        |> Reenv.arrayOft;
+        |> Reenv.t_of_in_channel(Reenv.make())
+        |> Reenv.get_exn("SINGLE_QUOTE");
 
-      let first = env[0];
-      let second = env[1];
-
-      expect.string(first).toEqual(second);
+      expect.string(env).toEqual("quoted");
     },
   );
 
   utils.test("whitespace is removed from both ends of the value", ({expect}) => {
     let env =
       open_in_bin("./fixtures/.env.trim")
-      |> Reenv.tOfInChannel
-      |> Reenv.arrayOft;
+      |> Reenv.t_of_in_channel(Reenv.make())
+      |> Reenv.get_exn("TRIM");
 
-    let first = env[0];
-    let second = env[1];
-
-    expect.string(first).toEqual(second);
+    expect.string(env).toEqual("trim");
   });
 
   utils.test(
@@ -73,8 +61,8 @@ describe("dotenv compliance", utils => {
     ({expect}) => {
       let env =
         open_in_bin("./fixtures/.env.json")
-        |> Reenv.tOfInChannel
-        |> Reenv.arrayOft;
+        |> Reenv.t_of_in_channel(Reenv.make())
+        |> Reenv.array_of_t;
 
       let first = env[0];
 
@@ -85,7 +73,7 @@ describe("dotenv compliance", utils => {
   utils.test("new lines are expanded", ({expect}) => {
     let env =
       open_in_bin("./fixtures/.env.new_line")
-      |> Reenv.tOfInChannel
+      |> Reenv.t_of_in_channel(Reenv.make())
       |> Reenv.array_of_t;
 
     let first = env[0];
