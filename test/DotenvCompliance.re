@@ -31,7 +31,9 @@ describe("dotenv compliance", utils => {
     "empty values become empty strings (EMPTY= becomes EMPTY=\"\")",
     ({expect}) => {
     let env =
-      open_in_bin("./fixtures/.env.empty") |> Reenv.tOfInChannel |> Reenv.arrayOft;
+      open_in_bin("./fixtures/.env.empty")
+      |> Reenv.tOfInChannel
+      |> Reenv.arrayOft;
 
     let first = env[0];
     let second = env[1];
@@ -56,7 +58,9 @@ describe("dotenv compliance", utils => {
 
   utils.test("whitespace is removed from both ends of the value", ({expect}) => {
     let env =
-      open_in_bin("./fixtures/.env.trim") |> Reenv.tOfInChannel |> Reenv.arrayOft;
+      open_in_bin("./fixtures/.env.trim")
+      |> Reenv.tOfInChannel
+      |> Reenv.arrayOft;
 
     let first = env[0];
     let second = env[1];
@@ -82,7 +86,7 @@ describe("dotenv compliance", utils => {
     let env =
       open_in_bin("./fixtures/.env.new_line")
       |> Reenv.tOfInChannel
-      |> Reenv.arrayOft;
+      |> Reenv.array_of_t;
 
     let first = env[0];
 

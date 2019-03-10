@@ -1,32 +1,40 @@
-type t = array(string);
+type t = Hashtbl.t(string, string);
 
-let tOfInChannel = ic =>
+let t_of_in_channel = (t, ic) => {
   Util.readUntilEndOfFile(ic)
   |> List.filter(s => String.contains(s, '='))
   |> List.map(String.split_on_char('='))
   |> List.map(Util.escapeEquals)
-  |> Array.of_list;
+  |> List.iter(((key, value)) => Hashtbl.replace(t, key, value));
+};
 
-let arrayOft: t => array(string) = t => t;
+let array_of_t: t => array(string) =
+  t => {
+    Hashtbl.fold((key, value, l) => [key ++ "=" ++ value, ...l], t, [])
+    |> Array.of_list;
+  };
 
-let main = argv => {
-  switch (argv) {
-  | [_, envFile, program, ...programArgs] =>
-    let programArgs = Array.of_list([program, ...programArgs]);
+let main = (~envFiles, ~command, argv) => {
+  let programArgs = Array.of_list([command, ...argv]);
 
-    open_in_bin(envFile)
-    |> tOfInChannel
-    |> Array.append(Unix.environment())
-    |> (
-      env =>
-        try (Unix.execvpe(program, programArgs, env)) {
-        | Unix.Unix_error(error, _method, _program) =>
-          print_endline("Got error: " ++ Unix.error_message(error));
-          exit(1);
-        }
-    );
-  | _ =>
-    print_endline("Not enough arguments");
+  let t: t = Hashtbl.create(64);
+
+  Unix.environment()
+  |> Array.map(s =>
+       switch (String.split_on_char('=', s)) {
+       | [key, ...value] => (key, String.concat("", value))
+       | _ => exit(1)
+       }
+     )
+  |> Array.iter(((key, value)) => Hashtbl.replace(t, key, value));
+
+  envFiles
+  |> List.map(open_in_bin)
+  |> List.iter(ic => t_of_in_channel(t, ic) |> ignore);
+
+  try (Unix.execvpe(command, programArgs, array_of_t(t))) {
+  | Unix.Unix_error(error, _method, _program) =>
+    print_endline("Got error: " ++ Unix.error_message(error));
     exit(1);
   };
 };

@@ -41,6 +41,6 @@ let escapeEquals = line =>
       |> trimCitation
       |> replaceNewline
       |> String.trim;
-    name ++ "=" ++ fixedValue;
-  | [] => String.concat("", line) // This should never happen
+    (name, fixedValue);
+  | [] => ("", "") // This should never happen
   };

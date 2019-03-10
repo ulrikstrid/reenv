@@ -1,6 +1,6 @@
 {
   "name": "reenv",
-  "version": "0.1.3",
+  "version": "0.2.0",
   "description": "dotenv-cli written in reason",
   "esy": {
     "build": "dune build -p #{self.name}",
@@ -48,7 +48,10 @@
     "ocaml": "^4.4.0",
     "pesy": "*",
     "@reason-native/pastel": "*",
-    "@reason-native/rely": "*"
+    "@reason-native/rely": "*",
+    "@opam/cmdliner": "*",
+    "@opam/ppx_deriving_cmdliner": "*",
+    "@opam/ppx_deriving": "*"
   },
   "devDependencies": {
     "@opam/merlin": "*",

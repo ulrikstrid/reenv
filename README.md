@@ -6,11 +6,26 @@
 
 ## Usage
 
-`reenv [dotenv-file] [executable] [...args]`
+```
+NAME
+       reenv
+
+SYNOPSIS
+       reenv [OPTION]... CMD ARGS
+
+OPTIONS
+       -e env file
+
+
+       --help[=FMT] (default=auto)
+           Show this help in format FMT. The value FMT must be one of `auto',
+           `pager', `groff' or `plain'. With `auto', the format is `pager` or
+           `plain' whenever the TERM env var is `dumb' or undefined.
+```
 
 ### example
 
-`reenv .env node index.js`
+`reenv -e .env -e .env.dev node index.js`
 
 ## simple benchmarks
 
