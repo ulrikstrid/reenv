@@ -37,8 +37,9 @@
   },
   "scripts": {
     "pesy": "bash -c 'env PESY_MODE=update pesy'",
-    "test": "esy dune runtest",
-    "doc": "esy dune build @doc"
+    "test": "esy b dune runtest",
+    "doc": "esy dune build @doc",
+    "format": "esy dune build @fmt --auto-promote"
   },
   "dependencies": {
     "@opam/dune": "*",
@@ -52,6 +53,6 @@
   "devDependencies": {
     "@opam/merlin": "*",
     "ocaml": "~4.6.0",
-    "@opam/odoc": "*"
+    "@opam/odoc": "1.4.0"
   }
 }

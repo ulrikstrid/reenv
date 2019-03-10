@@ -19,7 +19,7 @@ jobs:
       - script: "esy build"
         displayName: "esy build"
       - template: utils/create-docs.yml
-      - script: "esy b dune runtest"
+      - script: "esy test"
         displayName: "Test command"
       - script: "esy release"
         displayName: "esy release"
