@@ -14,19 +14,41 @@ reenv is available on all mainstream desktop platforms (Windows, macOS and Linux
 
 ```
 NAME
-       reenv
+       reenv - Read dotenv file(s) and supply them to the program.
 
 SYNOPSIS
-       reenv [OPTION]... CMD ARGS
+       reenv [OPTION]... COMMAND [ARGS]...
+
+ARGUMENTS
+       ARGS
+           Arguments passed to the command.
+
+       COMMAND (required)
+           Command to run
 
 OPTIONS
-       -e env file
-
+       -e ENV, --env-file=ENV
+           The .env files to read variables from.
 
        --help[=FMT] (default=auto)
            Show this help in format FMT. The value FMT must be one of `auto',
            `pager', `groff' or `plain'. With `auto', the format is `pager` or
            `plain' whenever the TERM env var is `dumb' or undefined.
+
+       --version
+           Show version information.
+
+EXIT STATUS
+       reenv exits with the following status:
+
+       0   on success.
+
+       124 on command line parsing errors.
+
+       125 on unexpected internal errors (bugs).
+
+BUGS
+       File an issue athttps://github.com/ulrikstrid/reenv/issues
 ```
 
 ### example
