@@ -27,13 +27,16 @@ ARGUMENTS
            Command to run
 
 OPTIONS
-       -e ENV, --env-file=ENV
+       -e FILE, --env-file=FILE
            The .env files to read variables from.
 
        --help[=FMT] (default=auto)
            Show this help in format FMT. The value FMT must be one of `auto',
            `pager', `groff' or `plain'. With `auto', the format is `pager` or
            `plain' whenever the TERM env var is `dumb' or undefined.
+
+       -s FILE, --safe=FILE
+           The .env file with keys that need to be provided.
 
        --version
            Show version information.
@@ -46,9 +49,6 @@ EXIT STATUS
        124 on command line parsing errors.
 
        125 on unexpected internal errors (bugs).
-
-BUGS
-       File an issue athttps://github.com/ulrikstrid/reenv/issues
 ```
 
 ### example

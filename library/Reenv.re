@@ -1,3 +1,5 @@
+exception Missing_keys(string);
+
 type t = Hashtbl.t(string, string);
 
 let t_of_in_channel = (t, ic) => {
@@ -10,9 +12,9 @@ let t_of_in_channel = (t, ic) => {
   t;
 };
 
-let array_of_t: t => array(string) =
+let array_of_t: t => array((string, string)) =
   t => {
-    Hashtbl.fold((key, value, l) => [key ++ "=" ++ value, ...l], t, [])
+    Hashtbl.fold((key, value, l) => [(key, value), ...l], t, [])
     |> Array.of_list;
   };
 
@@ -21,7 +23,28 @@ let make = (): t => Hashtbl.create(64);
 let get_opt = (key, t) => Hashtbl.find_opt(t, key);
 let get_exn = (key, t) => Hashtbl.find(t, key);
 
-let main = (~envFiles, ~command, argv) => {
+let checkSafe = (~safeFile, t) => {
+  let safeEnv = safeFile |> open_in_bin |> t_of_in_channel(make());
+
+  array_of_t(safeEnv)
+  |> Array.fold_left(
+       (lst, (key, _value)) =>
+         switch (get_opt(key, t)) {
+         | Some(_v) => lst
+         | None => [key, ...lst]
+         },
+       [],
+     )
+  |> (
+    keys =>
+      switch (keys) {
+      | [] => ()
+      | lst => Missing_keys(String.concat(", ", lst)) |> raise
+      }
+  );
+};
+
+let main = (~envFiles, ~safeFile, ~command, argv) => {
   let programArgs = Array.of_list([command, ...argv]);
 
   let t: t = make();
@@ -39,7 +62,16 @@ let main = (~envFiles, ~command, argv) => {
   |> List.map(open_in_bin)
   |> List.iter(ic => t_of_in_channel(t, ic) |> ignore);
 
-  try (Unix.execvpe(command, programArgs, array_of_t(t))) {
+  let () =
+    switch (safeFile) {
+    | Some(safeFile) => checkSafe(~safeFile, t)
+    | None => ()
+    };
+
+  let environment =
+    array_of_t(t) |> Array.map(((key, value)) => key ++ "=" ++ value);
+
+  try (Unix.execvpe(command, programArgs, environment)) {
   | Unix.Unix_error(error, _method, _program) =>
     print_endline("Got error: " ++ Unix.error_message(error));
     exit(1);

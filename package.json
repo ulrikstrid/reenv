@@ -1,6 +1,6 @@
 {
   "name": "reenv",
-  "version": "0.2.1",
+  "version": "0.3.0",
   "description": "dotenv-cli written in reason",
   "esy": {
     "build": "dune build -p #{self.name}",

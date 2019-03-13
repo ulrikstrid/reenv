@@ -1,15 +1,20 @@
 open Cmdliner;
 
-let start = (envFiles, command, args) => {
-  Reenv.main(~envFiles, ~command, args);
-};
-
 let envFiles = {
   let doc = "The .env files to read variables from.";
   Arg.(
     value
     & opt_all(non_dir_file, [])
-    & info(["e", "env-file"], ~docv="ENV", ~doc)
+    & info(["e", "env-file"], ~docv="FILE", ~doc)
+  );
+};
+
+let safeFile = {
+  let doc = "The .env file with keys that need to be provided.";
+  Arg.(
+    value
+    & opt(some(non_dir_file), None)
+    & info(["s", "safe"], ~docv="FILE", ~doc)
   );
 };
 
@@ -31,19 +36,23 @@ let args = {
   );
 };
 
+let start = (envFiles, safeFile, command, args) => {
+  Reenv.main(~envFiles, ~safeFile, ~command, args);
+};
+
 let () = {
   let doc = "Read dotenv file(s) and supply them to the program.";
   let man = [
     `S(Manpage.s_bugs),
     `P("File an issue athttps://github.com/ulrikstrid/reenv/issues"),
   ];
-  let term = Term.(const(start) $ envFiles $ command $ args);
+  let term = Term.(const(start) $ envFiles $ safeFile $ command $ args);
   let info =
     Term.info(
       "reenv",
       ~doc,
       ~man,
-      ~version="0.2.1",
+      ~version="0.3.0",
       ~exits=Term.default_exits,
     );
 

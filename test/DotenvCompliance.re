@@ -64,9 +64,10 @@ describe("dotenv compliance", utils => {
         |> Reenv.t_of_in_channel(Reenv.make())
         |> Reenv.array_of_t;
 
-      let first = env[0];
+      let (key, value) = env[0];
 
-      expect.string(first).toEqual("JSON={\"foo\": \"bar\"}");
+      expect.string(key).toEqual("JSON");
+      expect.string(value).toEqual("{\"foo\": \"bar\"}");
     },
   );
 
@@ -76,9 +77,10 @@ describe("dotenv compliance", utils => {
       |> Reenv.t_of_in_channel(Reenv.make())
       |> Reenv.array_of_t;
 
-    let first = env[0];
+    let (key, value) = env[0];
 
-    expect.string(first).toEqual({|NEW_LINE=new
+    expect.string(key).toEqual("NEW_LINE");
+    expect.string(value).toEqual({|new
 line|});
   });
 });
