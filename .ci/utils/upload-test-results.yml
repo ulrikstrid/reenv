@@ -12,3 +12,4 @@ steps:
       testResultsFiles: $(junitPath)
       failTaskOnFailedTests: true
       buildPlatform: ${{ parameters.platform }}
+      testRunTitle: ${{ parameters.platform }}
