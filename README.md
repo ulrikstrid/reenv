@@ -2,7 +2,9 @@
 
 [![Build Status](https://strid.visualstudio.com/OSS/_apis/build/status/ulrikstrid.reenv?branchName=master)](https://strid.visualstudio.com/OSS/_build/latest?definitionId=23&branchName=master)
 
-[dotenv-cli](https://github.com/entropitor/dotenv-cli) implementation in ReasonML. The goal is to have feature parity with [dotenv](https://github.com/motdotla/dotenv) but be implemented in Reason. If there is a feature missing please log an issue.
+[dotenv-cli](https://github.com/entropitor/dotenv-cli) implementation in native ReasonML. The goal is to have feature parity with [dotenv](https://github.com/motdotla/dotenv) but be implemented in Reason. If there is a feature missing please log an issue.
+
+reenv is compiled as a binary and there is no node involved when running it as you can see in the [benchmarks section](#simple-benchmarks).
 
 ## Installation
 
@@ -58,32 +60,24 @@ EXIT STATUS
 ## simple benchmarks
 
 ```
-Ulriks-MBP:reenv ulrik$ time dotenv -e test/.env node test/index.js
+Ulriks-MBP:reenv ulrik$ time TEST=hello printenv TEST
+hello
+
+real	0m0.004s
+user	0m0.001s
+sys	0m0.003s
+Ulriks-MBP:reenv ulrik$ time reenv -e test/fixtures/.env printenv TEST
 hello world!
-hello world?
-hello=world
 
-real    0m0.152s
-user    0m0.118s
-sys     0m0.031s
-
-Ulriks-MBP:reenv ulrik$ time reenv -e test/.env node test/index.js
+real	0m0.008s
+user	0m0.003s
+sys	0m0.003s
+Ulriks-MBP:reenv ulrik$ time dotenv -e test/fixtures/.env printenv TEST
 hello world!
-hello world?
-hello=world
 
-real    0m0.076s
-user    0m0.056s
-sys     0m0.015s
-
-Ulriks-MBP:reenv ulrik$ time TEST=a TEST2=b TEST3=c node test/index.js
-a
-b
-c
-
-real    0m0.070s
-user    0m0.053s
-sys     0m0.014s
+real	0m0.088s
+user	0m0.067s
+sys	0m0.018s
 ```
 
 ## Developing:
