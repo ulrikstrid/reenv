@@ -9,3 +9,4 @@ _esy/
 reenv.install
 .DS_Store
 *.install
+junit.xml

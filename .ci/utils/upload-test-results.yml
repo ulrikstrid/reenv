@@ -1,0 +1,14 @@
+parameters:
+  platform: "macOS"
+
+steps:
+  - script: echo '##vso[task.setvariable variable=junitPath]'$(esy echo '#{self.target_dir}/default/test/junit.xml')
+    displayName: "Save test results path in variable"
+
+  - task: PublishTestResults@2
+    displayName: "Publish JUnit file"
+    inputs:
+      testResultsFormat: JUnit
+      testResultsFiles: $(junitPath)
+      failTaskOnFailedTests: true
+      buildPlatform: ${{ parameters.platform }}

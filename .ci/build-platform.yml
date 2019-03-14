@@ -21,6 +21,9 @@ jobs:
       - template: utils/create-docs.yml
       - script: "esy test"
         displayName: "Test command"
+      - template: utils/upload-test-results.yml
+        parameters:
+          platform: ${{ parameters.platform }}
       - script: "esy release"
         displayName: "esy release"
       - task: PublishBuildArtifacts@1

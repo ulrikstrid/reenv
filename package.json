@@ -53,6 +53,9 @@
     "@opam/ppx_deriving_cmdliner": "*",
     "@opam/ppx_deriving": "*"
   },
+  "resolutions": {
+    "@reason-native/rely": "ulrikstrid/reason-native:rely.json#db61a36"
+  },
   "devDependencies": {
     "@opam/merlin": "*",
     "ocaml": "~4.6.0",
