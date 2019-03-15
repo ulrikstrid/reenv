@@ -2,7 +2,7 @@ parameters:
   platform: "macOS"
 
 steps:
-  - script: echo '##vso[task.setvariable variable=junitPath]'$(esy echo '#{self.target_dir}/default/test/junit.xml')
+  - script: esy echo '##vso[task.setvariable variable=junitPath]#{self.target_dir}/default/test/junit.xml'
     displayName: "Save test results path in variable"
 
   - task: PublishTestResults@2
