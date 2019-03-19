@@ -2,14 +2,15 @@ parameters:
   platform: "macOS"
 
 steps:
-  - script: esy echo '##vso[task.setvariable variable=junitPath]#{self.target_dir}/default/test/junit.xml'
+  - script: esy echo '##vso[task.setvariable variable=junitPath]#{self.target_dir}'
     displayName: "Save test results path in variable"
 
   - task: PublishTestResults@2
     displayName: "Publish JUnit file"
     inputs:
       testResultsFormat: JUnit
-      testResultsFiles: $(junitPath)
+      searchFolder: $(junitPath)
+      testResultsFiles: "**/junit.xml"
       failTaskOnFailedTests: true
       buildPlatform: ${{ parameters.platform }}
       testRunTitle: ${{ parameters.platform }}
