@@ -37,7 +37,8 @@
   },
   "scripts": {
     "pesy": "bash -c 'env PESY_MODE=update pesy'",
-    "test": "esy b dune runtest",
+    "test": "esy b dune runtest --force",
+    "coverage": "esy bisect-ppx-report -html _coverage #{self.target_dir}/default/test/bisect0001.out -verbose ",
     "doc": "esy dune build @doc",
     "format": "esy dune build @fmt --auto-promote"
   },
@@ -50,13 +51,15 @@
     "@reason-native/pastel": "*",
     "@reason-native/rely": "*",
     "@opam/cmdliner": "*",
-    "@opam/ppx_deriving_cmdliner": "*",
-    "@opam/ppx_deriving": "*"
+    "@opam/ppxlib": "*",
+    "@opam/re": "*"
   },
   "resolutions": {
-    "@reason-native/rely": "ulrikstrid/reason-native:rely.json#db61a36"
+    "@opam/ppxlib": "ocaml-ppx/ppxlib:ppxlib.opam#3bdccbb09b94acdf1f29e3cf57a263aea82e72fa",
+    "@opam/ocaml-migrate-parsetree": "ocaml-ppx/ocaml-migrate-parsetree:ocaml-migrate-parsetree.opam#a5be5e1b94f02c667ab354c2e6b55baedeb30187"
   },
   "devDependencies": {
+    "@opam/bisect_ppx": "*",
     "@opam/merlin": "*",
     "ocaml": "~4.6.0",
     "@opam/odoc": "1.4.0"

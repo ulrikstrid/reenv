@@ -9,10 +9,10 @@
    (public_name reenv)  ;  From package.json name field
    (libraries  reenv.lib cmdliner) ;  From package.json require field (array of strings)
    (package reenv)
-   (preprocess (pps ppx_deriving.show ppx_deriving_cmdliner))
 )
 
 (env
   (_
-    (flags (:standard -w -39)))
+    (flags (:standard -w -39))
+    )
 )

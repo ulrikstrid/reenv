@@ -1,3 +1,5 @@
+open Re;
+
 let rec readUntilEndOfFile = (~previousLines=[], in_channel) =>
   try (
     {
@@ -14,23 +16,13 @@ let rec readUntilEndOfFile = (~previousLines=[], in_channel) =>
   | End_of_file => List.rev(previousLines)
   };
 
-let trimCitation = str => {
-  let str = Str.global_replace(Str.regexp("'"), "\"", str);
-  if (str == "") {
-    str;
-  } else if (str.[0] == '"') {
-    // If we find a " in the start, assume it's one in the end as well
-    let len = String.length(str);
-
-    String.sub(str, 1, len - 2);
-  } else {
-    str;
+let trimCitation = str =>
+  try (
+    exec(Perl.compile_pat("(^[\'\"])(.*)[\'\"]$"), str)
+    |> (g => Group.get(g, 2))
+  ) {
+  | Not_found => str
   };
-};
-
-let replaceNewline = str => {
-  Str.global_replace(Str.regexp("\\\\n"), "\n", str);
-};
 
 let escapeEquals = line =>
   switch (line) {
@@ -39,8 +31,9 @@ let escapeEquals = line =>
       value
       |> String.concat("=")
       |> trimCitation
-      |> replaceNewline
+      |> Str.global_replace(Str.regexp("\\\\n"), "\n")
       |> String.trim;
+
     (name, fixedValue);
   | [] => ("", "") // This should never happen
   };
