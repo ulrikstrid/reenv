@@ -56,7 +56,8 @@
   },
   "resolutions": {
     "@opam/ppxlib": "ocaml-ppx/ppxlib:ppxlib.opam#3bdccbb09b94acdf1f29e3cf57a263aea82e72fa",
-    "@opam/ocaml-migrate-parsetree": "ocaml-ppx/ocaml-migrate-parsetree:ocaml-migrate-parsetree.opam#a5be5e1b94f02c667ab354c2e6b55baedeb30187"
+    "@opam/ocaml-migrate-parsetree": "ocaml-ppx/ocaml-migrate-parsetree:ocaml-migrate-parsetree.opam#a5be5e1b94f02c667ab354c2e6b55baedeb30187",
+    "@opam/base": "v0.11.1"
   },
   "devDependencies": {
     "@opam/bisect_ppx": "*",
