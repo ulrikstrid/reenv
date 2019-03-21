@@ -42,7 +42,7 @@
   "scripts": {
     "pesy": "bash -c 'env PESY_MODE=update pesy'",
     "test": "esy x RunTests.exe",
-    "coverage": "esy bisect-ppx-report -html _coverage -I '#{self.target_dir}' bisect*.out -verbose ",
+    "coverage": "esy bisect-ppx-report -html _coverage -I '#{self.target_dir}' bisect*.out -verbose",
     "doc": "esy dune build @doc",
     "format": "esy dune build @fmt --auto-promote"
   },

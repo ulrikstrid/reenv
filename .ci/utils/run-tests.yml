@@ -20,7 +20,7 @@ steps:
       buildPlatform: ${{ parameters.platform }}
       testRunTitle: ${{ parameters.platform }}
 
-  - script: esy coverage
+  - script: esy bisect-ppx-report -html _coverage -I '#{self.target_dir}' bisect*.out -verbose
     displayName: "Generate coverage report"
 
   - task: PublishBuildArtifacts@1
