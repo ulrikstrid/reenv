@@ -3,7 +3,11 @@
   "version": "0.3.0",
   "description": "dotenv-cli written in reason",
   "esy": {
-    "build": "dune build -p #{self.name}",
+    "build": "dune build --profile=release",
+    "install": [
+      "esy-installer reenv.install",
+      "esy-installer reenv-tests.install"
+    ],
     "release": {
       "bin": [
         "reenv"
@@ -37,8 +41,8 @@
   },
   "scripts": {
     "pesy": "bash -c 'env PESY_MODE=update pesy'",
-    "test": "esy b dune runtest --force",
-    "coverage": "esy bisect-ppx-report -html _coverage #{self.target_dir}/default/test/bisect0001.out -verbose ",
+    "test": "esy x RunTests.exe",
+    "coverage": "esy bisect-ppx-report -html _coverage -I '#{self.target_dir}' bisect*.out -verbose ",
     "doc": "esy dune build @doc",
     "format": "esy dune build @fmt --auto-promote"
   },

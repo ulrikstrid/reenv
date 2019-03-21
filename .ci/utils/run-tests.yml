@@ -6,46 +6,28 @@ steps:
       esy cp library/dune library/dune.bak
       esy awk 'NR==11 {$0="   (preprocess (pps bisect_ppx))"} 1' library/dune.bak > library/dune
     displayName: "Prepare dune for coverage"
-    condition: and(succeeded(), ne('${{ parameters.platform }}', 'Windows'))
 
   - script: "esy test"
     displayName: "Test command"
     continueOnError: true
 
-  - script: esy echo '##vso[task.setvariable variable=junitPath]#{self.target_dir}/default/test/junit.xml'
-    displayName: "Save test results path in variable"
-
   - task: PublishTestResults@2
     displayName: "Publish JUnit file"
     inputs:
       testResultsFormat: JUnit
-      testResultsFiles: $(junitPath)
+      testResultsFiles: "junit.xml"
       failTaskOnFailedTests: true
       buildPlatform: ${{ parameters.platform }}
       testRunTitle: ${{ parameters.platform }}
-    condition: and(succeeded(), ne('${{ parameters.platform }}', 'Windows'))
-
-  - task: PublishTestResults@2
-    displayName: "Publish JUnit file"
-    inputs:
-      testResultsFormat: JUnit
-      testResultsFiles: "**/junit.xml"
-      failTaskOnFailedTests: true
-      buildPlatform: ${{ parameters.platform }}
-      testRunTitle: ${{ parameters.platform }}
-    condition: and(succeeded(), eq('${{ parameters.platform }}', 'Windows'))
 
   - script: esy coverage
     displayName: "Generate coverage report"
-    condition: and(succeeded(), ne('${{ parameters.platform }}', 'Windows'))
 
   - task: PublishBuildArtifacts@1
     displayName: Publish coverage html
     inputs:
       PathtoPublish: _coverage
       ArtifactName: ${{ parameters.platform }}_coverage
-    condition: and(succeeded(), ne('${{ parameters.platform }}', 'Windows'))
 
   - script: esy mv library/dune.bak library/dune
     displayName: "Return dune to previous state"
-    condition: and(succeeded(), ne('${{ parameters.platform }}', 'Windows'))

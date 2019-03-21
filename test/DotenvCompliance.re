@@ -2,14 +2,14 @@ open TestFramework;
 
 describe("dotenv compliance", utils => {
   utils.test("empty lines are skipped", ({expect}) => {
-    let file = open_in_bin("./fixtures/.env.with_empty_line");
+    let file = open_in_bin("./test/fixtures/.env.with_empty_line");
     let rows = Reenv.Util.readUntilEndOfFile(file);
 
     expect.int(List.length(rows)).toBe(2);
   });
 
   utils.test("BASIC=basic is same as BASIC=\"basic\"", ({expect}) => {
-    let file = open_in_bin("./fixtures/.env.with_comment");
+    let file = open_in_bin("./test/fixtures/.env.with_comment");
     let rows = Reenv.Util.readUntilEndOfFile(file);
 
     expect.int(List.length(rows)).toBe(2);
@@ -17,7 +17,7 @@ describe("dotenv compliance", utils => {
 
   utils.test("BASIC=basic is same as BASIC=\"basic\"", ({expect}) => {
     let env =
-      open_in_bin("./fixtures/.env.quotes")
+      open_in_bin("./test/fixtures/.env.quotes")
       |> Reenv.t_of_in_channel(Reenv.make())
       |> Reenv.get_exn("BASIC");
 
@@ -28,7 +28,7 @@ describe("dotenv compliance", utils => {
     "empty values become empty strings (EMPTY= becomes EMPTY=\"\")",
     ({expect}) => {
     let env =
-      open_in_bin("./fixtures/.env.empty")
+      open_in_bin("./test/fixtures/.env.empty")
       |> Reenv.t_of_in_channel(Reenv.make())
       |> Reenv.get_exn("EMPTY");
 
@@ -39,7 +39,7 @@ describe("dotenv compliance", utils => {
     "single and double quoted values are escaped (SINGLE_QUOTE='quoted' == SINGLE_QUOTE=\"quoted\")",
     ({expect}) => {
       let env =
-        open_in_bin("./fixtures/.env.single_quotes")
+        open_in_bin("./test/fixtures/.env.single_quotes")
         |> Reenv.t_of_in_channel(Reenv.make())
         |> Reenv.get_exn("SINGLE_QUOTE");
 
@@ -49,7 +49,7 @@ describe("dotenv compliance", utils => {
 
   utils.test("whitespace is removed from both ends of the value", ({expect}) => {
     let env =
-      open_in_bin("./fixtures/.env.trim")
+      open_in_bin("./test/fixtures/.env.trim")
       |> Reenv.t_of_in_channel(Reenv.make())
       |> Reenv.get_exn("TRIM");
 
@@ -60,7 +60,7 @@ describe("dotenv compliance", utils => {
     "inner quotes are maintained (think JSON) (JSON={\"foo\": \"bar\"} becomes {JSON:\"{\\\"foo\\\": \\\"bar\\\"}\")",
     ({expect}) => {
       let env =
-        open_in_bin("./fixtures/.env.json")
+        open_in_bin("./test/fixtures/.env.json")
         |> Reenv.t_of_in_channel(Reenv.make())
         |> Reenv.array_of_t;
 
@@ -73,7 +73,7 @@ describe("dotenv compliance", utils => {
 
   utils.test("new lines are expanded", ({expect}) => {
     let env =
-      open_in_bin("./fixtures/.env.new_line")
+      open_in_bin("./test/fixtures/.env.new_line")
       |> Reenv.t_of_in_channel(Reenv.make())
       |> Reenv.array_of_t;
 

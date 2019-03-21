@@ -3,7 +3,7 @@ open TestFramework;
 describe("utils", utils => {
   utils.test(
     "readUntilEndOfFile - should read all lines corectly", ({expect}) => {
-    let file = open_in_bin("./fixtures/.env");
+    let file = open_in_bin("./test/fixtures/.env");
     let rows = Reenv.Util.readUntilEndOfFile(file);
 
     expect.list(rows).toEqual([

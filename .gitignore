@@ -9,6 +9,8 @@ _esy/
 reenv.install
 .DS_Store
 *.install
+
 junit.xml
 _coverage
 coverage.json
+bisect*
