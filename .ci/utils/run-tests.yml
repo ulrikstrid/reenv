@@ -3,8 +3,8 @@ parameters:
 
 steps:
   - script: |
-      esy cp library/dune library/dune.bak
-      esy awk 'NR==11 {$0="   (preprocess (pps bisect_ppx))"} 1' library/dune.bak > library/dune
+      esy cp lib/dune lib/dune.bak
+      esy awk 'NR==11 {$0="   (preprocess (pps bisect_ppx))"} 1' lib/dune.bak > lib/dune
     displayName: "Prepare dune for coverage"
     condition: and(succeeded(), ne('${{ parameters.platform }}', 'Windows'))
 
@@ -46,6 +46,6 @@ steps:
       ArtifactName: ${{ parameters.platform }}_coverage
     condition: and(succeeded(), ne('${{ parameters.platform }}', 'Windows'))
 
-  - script: esy mv library/dune.bak library/dune
+  - script: esy mv lib/dune.bak lib/dune
     displayName: "Return dune to previous state"
     condition: and(succeeded(), ne('${{ parameters.platform }}', 'Windows'))

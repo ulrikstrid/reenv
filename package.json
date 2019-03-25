@@ -13,30 +13,39 @@
   "buildDirs": {
     "test": {
       "require": [
-        "rely.lib",
-        "reenv.lib"
+        "rely/lib",
+        "reenv/lib"
       ],
-      "main": "TestReenv",
-      "name": "TestReenv.exe"
+      "bin": "TestReenv.re",
+      "ocamloptFlags": ["-linkall", "-g"],
+      "rawBuildConfig": [
+        "(deps fixtures/.env fixtures/.env.empty fixtures/.env.json fixtures/.env.new_line fixtures/.env.quotes fixtures/.env.single_quotes fixtures/.env.trim fixtures/.env.with_comment fixtures/.env.with_empty_line)"
+      ]
     },
-    "library": {
-      "name": "reenv.lib",
+    "lib": {
       "namespace": "Reenv",
       "require": [
         "unix",
-        "str"
+        "re"
       ]
     },
     "executable": {
       "require": [
-        "reenv.lib"
+        "reenv/lib",
+        "cmdliner"
       ],
-      "main": "ReenvApp",
-      "name": "reenv.exe"
+      "bin": {
+        "reenv": "ReenvApp.re"
+      },
+      "rawBuildConfig": [
+        "(package reenv)"
+      ],
+      "rawBuildConfigFooter": [
+        "(env (_ (flags (:standard -w -39))))"
+      ]
     }
   },
   "scripts": {
-    "pesy": "bash -c 'env PESY_MODE=update pesy'",
     "test": "esy b dune runtest --force",
     "coverage": "esy bisect-ppx-report -html _coverage #{self.target_dir}/default/test/bisect0001.out -verbose ",
     "doc": "esy dune build @doc",
@@ -57,7 +66,8 @@
   "resolutions": {
     "@opam/ppxlib": "ocaml-ppx/ppxlib:ppxlib.opam#3bdccbb09b94acdf1f29e3cf57a263aea82e72fa",
     "@opam/ocaml-migrate-parsetree": "ocaml-ppx/ocaml-migrate-parsetree:ocaml-migrate-parsetree.opam#a5be5e1b94f02c667ab354c2e6b55baedeb30187",
-    "@opam/base": "v0.11.1"
+    "@opam/base": "v0.11.1",
+    "pesy": "esy/pesy#fde323697a0357003d16fb6e057d7c7b0ee293fd"
   },
   "devDependencies": {
     "@opam/bisect_ppx": "*",
