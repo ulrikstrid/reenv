@@ -2,12 +2,6 @@ parameters:
   platform: "macOS"
 
 steps:
-  - script: |
-      esy cp lib/dune lib/dune.bak
-      esy awk 'NR==11 {$0="   (preprocess (pps bisect_ppx))"} 1' lib/dune.bak > lib/dune
-    displayName: "Prepare dune for coverage"
-    condition: and(succeeded(), ne('${{ parameters.platform }}', 'Windows'))
-
   - script: "esy test"
     displayName: "Test command"
     continueOnError: true
@@ -34,18 +28,3 @@ steps:
       buildPlatform: ${{ parameters.platform }}
       testRunTitle: ${{ parameters.platform }}
     condition: and(succeeded(), eq('${{ parameters.platform }}', 'Windows'))
-
-  - script: esy coverage
-    displayName: "Generate coverage report"
-    condition: and(succeeded(), ne('${{ parameters.platform }}', 'Windows'))
-
-  - task: PublishBuildArtifacts@1
-    displayName: Publish coverage html
-    inputs:
-      PathtoPublish: _coverage
-      ArtifactName: ${{ parameters.platform }}_coverage
-    condition: and(succeeded(), ne('${{ parameters.platform }}', 'Windows'))
-
-  - script: esy mv lib/dune.bak lib/dune
-    displayName: "Return dune to previous state"
-    condition: and(succeeded(), ne('${{ parameters.platform }}', 'Windows'))
