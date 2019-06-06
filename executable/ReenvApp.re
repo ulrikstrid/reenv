@@ -43,8 +43,12 @@ let start = (envFiles, safeFile, command, args) => {
 let () = {
   let doc = "Read dotenv file(s) and supply them to the program.";
   let man = [
+    `S(Manpage.s_examples),
+    `P(
+      "To pass flags to the command you are executing, use $(b,--) before your command. $(b,reenv -e .env -- ls --all).",
+    ),
     `S(Manpage.s_bugs),
-    `P("File an issue athttps://github.com/ulrikstrid/reenv/issues"),
+    `P("File an issue at https://github.com/ulrikstrid/reenv/issues"),
   ];
   let term = Term.(const(start) $ envFiles $ safeFile $ command $ args);
   let info =
