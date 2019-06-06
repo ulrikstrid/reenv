@@ -7,7 +7,7 @@ steps:
       artifactName: Release
       downloadPath: $(Build.StagingDirectory)
 
-  - script: npm -g install reenv-$(Build.SourceBranchName).tgz
+  - bash: npm -g install reenv-*.tgz
     displayName: Install the package
     workingDirectory: $(Build.StagingDirectory)/Release
 

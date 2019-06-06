@@ -11,66 +11,55 @@ pr:
     include:
       - master
 
-jobs:
-  - template: .ci/build-platform.yml
-    parameters:
-      platform: Linux
-      vmImage: ubuntu-16.04
+stages:
+  - stage: Build_platforms
+    jobs:
+      - template: .ci/build-platform.yml
+        parameters:
+          platform: Linux
+          vmImage: ubuntu-16.04
 
-  - template: .ci/build-platform.yml
-    parameters:
-      platform: macOS
-      vmImage: macOS-10.13
+      - template: .ci/build-platform.yml
+        parameters:
+          platform: macOS
+          vmImage: macOS-latest
 
-  - template: .ci/build-platform.yml
-    parameters:
-      platform: Windows
-      vmImage: vs2017-win2016
+      - template: .ci/build-platform.yml
+        parameters:
+          platform: Windows
+          vmImage: vs2017-win2016
 
-  # This job is kept here as we want to have the platform names in the same file
-  - job: Release
-    displayName: Release
-    dependsOn:
-      - Linux
-      - macOS
-      - Windows
-    pool:
-      vmImage: ubuntu-16.04
-      demands: node.js
-    # Only run if this is not a PullRequest
-    condition: and(succeeded(), ne(variables['Build.Reason'], 'PullRequest'))
-    steps:
-      - template: .ci/cross-release.yml
+  - stage: Create_release
+    dependsOn: [Build_platforms]
+    jobs:
+    - job: Release
+      displayName: Release
+      pool:
+        vmImage: ubuntu-16.04
 
-  - job: TestReleaseLinux
-    displayName: Test Release Linux
-    dependsOn:
-      - Release
-    pool:
-      vmImage: ubuntu-16.04
-      demands: node.js
-    condition: and(succeeded(), startsWith(variables['Build.SourceBranch'], 'refs/tags'))
-    steps:
-      - template: .ci/test-release.yml
+      steps:
+        - template: .ci/cross-release.yml
 
-  - job: TestReleasOsX
-    displayName: Test Release osX
-    dependsOn:
-      - Release
-    pool:
-      vmImage: macOS-10.13
-      demands: node.js
-    condition: and(succeeded(), startsWith(variables['Build.SourceBranch'], 'refs/tags'))
-    steps:
-      - template: .ci/test-release.yml
+  - stage: Test_releases
+    dependsOn: [Create_release]
+    jobs:
+    - job: TestReleaseLinux
+      displayName: Test Release Linux
+      pool:
+        vmImage: ubuntu-16.04
+      steps:
+        - template: .ci/test-release.yml
 
-  - job: TestReleaseWindows
-    displayName: Test Release Windows
-    dependsOn:
-      - Release
-    pool:
-      vmImage: vs2017-win2016
-      demands: node.js
-    condition: and(succeeded(), startsWith(variables['Build.SourceBranch'], 'refs/tags'))
-    steps:
-      - template: .ci/test-release.yml
+    - job: TestReleasOsX
+      displayName: Test Release osX
+      pool:
+        vmImage: macOS-latest
+      steps:
+        - template: .ci/test-release.yml
+
+    - job: TestReleaseWindows
+      displayName: Test Release Windows
+      pool:
+        vmImage: vs2017-win2016
+      steps:
+        - template: .ci/test-release.yml
