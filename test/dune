@@ -1,6 +1,2 @@
-(test (name TestReenv) (libraries rely.lib reenv.lib)
-    (ocamlopt_flags -linkall -g)
-    (deps fixtures/.env fixtures/.env.empty fixtures/.env.json
-        fixtures/.env.new_line fixtures/.env.quotes
-        fixtures/.env.single_quotes fixtures/.env.trim
-        fixtures/.env.with_comment fixtures/.env.with_empty_line)) 
+(executable (name TestReenv) (public_name TestReenv.exe)
+    (libraries rely.lib reenv.lib) (ocamlopt_flags -linkall -g)) 

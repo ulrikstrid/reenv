@@ -13,18 +13,7 @@ steps:
     displayName: "Publish JUnit file"
     inputs:
       testResultsFormat: JUnit
-      testResultsFiles: $(junitPath)
+      testResultsFiles: "./junit.xml"
       failTaskOnFailedTests: true
       buildPlatform: ${{ parameters.platform }}
       testRunTitle: ${{ parameters.platform }}
-    condition: and(succeeded(), ne('${{ parameters.platform }}', 'Windows'))
-
-  - task: PublishTestResults@2
-    displayName: "Publish JUnit file"
-    inputs:
-      testResultsFormat: JUnit
-      testResultsFiles: "**/junit.xml"
-      failTaskOnFailedTests: true
-      buildPlatform: ${{ parameters.platform }}
-      testRunTitle: ${{ parameters.platform }}
-    condition: and(succeeded(), eq('${{ parameters.platform }}', 'Windows'))
