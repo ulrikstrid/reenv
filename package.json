@@ -55,24 +55,19 @@
   },
   "dependencies": {
     "@opam/dune": "*",
-    "@esy-ocaml/reason": ">= 3.4.0 < 3.5.0",
+    "@esy-ocaml/reason": "*",
     "refmterr": "*",
-    "ocaml": "^4.4.0",
+    "ocaml": "^4.6.0",
     "pesy": "*",
     "@reason-native/pastel": "*",
     "@reason-native/rely": "*",
     "@opam/cmdliner": "*",
-    "@opam/ppxlib": "*",
     "@opam/re": "*"
   },
   "resolutions": {
-    "@opam/ppxlib": "ocaml-ppx/ppxlib:ppxlib.opam#3bdccbb09b94acdf1f29e3cf57a263aea82e72fa",
-    "@opam/ocaml-migrate-parsetree": "ocaml-ppx/ocaml-migrate-parsetree:ocaml-migrate-parsetree.opam#a5be5e1b94f02c667ab354c2e6b55baedeb30187",
-    "@opam/base": "v0.11.1",
-    "pesy": "esy/pesy#fde323697a0357003d16fb6e057d7c7b0ee293fd"
+    "pesy": "esy/pesy#3d8a183"
   },
   "devDependencies": {
-    "@opam/bisect_ppx": "*",
     "@opam/merlin": "*",
     "ocaml": "~4.6.0",
     "@opam/odoc": "1.4.0"
