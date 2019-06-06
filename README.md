@@ -51,6 +51,13 @@ EXIT STATUS
        124 on command line parsing errors.
 
        125 on unexpected internal errors (bugs).
+
+EXAMPLES
+       To pass flags to the command you are executing, use -- before your
+       command. reenv -e .env -- ls --all.
+
+BUGS
+       File an issue at https://github.com/ulrikstrid/reenv/issues
 ```
 
 ### example
