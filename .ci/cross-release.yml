@@ -27,8 +27,8 @@ steps:
     displayName: "npm pack"
     workingDirectory: "_release"
 
-  - task: PublishBuildArtifacts@1
+  - task: PublishPipelineArtifact@0
     displayName: "Publish Artifact: Release"
     inputs:
-      PathtoPublish: "_release"
+      targetPath: "_release"
       ArtifactName: Release

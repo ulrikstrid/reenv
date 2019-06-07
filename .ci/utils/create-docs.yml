@@ -9,10 +9,10 @@ steps:
     displayName: "Save docsPath in variable"
     condition: and(succeeded(), eq(variables['Agent.OS'], 'Linux'))
 
-  - task: PublishBuildArtifacts@1
+  - task: PublishPipelineArtifact@0
     displayName: "Publish Artifact: Docs"
     condition: and(succeeded(), eq(variables['Agent.OS'], 'Linux'))
     continueOnError: true
     inputs:
-      PathtoPublish: $(docsPath)
-      ArtifactName: Docs
+      targetPath: "$(docsPath)"
+      artifactName: "Docs"

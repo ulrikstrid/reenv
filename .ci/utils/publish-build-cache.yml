@@ -15,11 +15,9 @@ steps:
     condition: and(and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master')), eq(variables['Agent.OS'], 'Windows_NT'))
     displayName: '[Cache][Publish] Tar esy cache directory'
 
-  - task: PublishBuildArtifacts@1
-    displayName: '[Cache][Publish] Upload tarball'
+  - task: PublishPipelineArtifact@0
+    displayName: "[Cache][Publish] Upload tarball"
     condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
     inputs:
-        pathToPublish: '$(STAGING_DIRECTORY)'
-        artifactName: 'cache-$(Agent.OS)-install'
-        parallel: true
-        parallelCount: 8
+      targetPath: "$(STAGING_DIRECTORY)"
+      artifactName: "cache-$(Agent.OS)-install"

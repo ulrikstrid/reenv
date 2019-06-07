@@ -1,15 +1,15 @@
 steps:
   - template: utils/use-node.yml
 
-  - task: DownloadBuildArtifacts@0
+  - task: DownloadPipelineArtifact@0
     displayName: "Download Release Artifacts"
     inputs:
       artifactName: Release
-      downloadPath: $(Build.StagingDirectory)
+      targetPath: $(Build.StagingDirectory)
 
   - bash: npm -g install reenv-*.tgz
     displayName: Install the package
-    workingDirectory: $(Build.StagingDirectory)/Release
+    workingDirectory: $(Build.StagingDirectory)
 
   - script: reenv -e test/fixtures/.env node test/index.js
     displayName: Test if command installed successfully
