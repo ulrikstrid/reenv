@@ -1,6 +1,6 @@
 # reenv
 
-[![Build Status](https://strid.visualstudio.com/OSS/_apis/build/status/ulrikstrid.reenv?branchName=master)](https://strid.visualstudio.com/OSS/_build/latest?definitionId=23&branchName=master)
+[![Build Status](https://dev.azure.com/strid/reenv/_apis/build/status/ulrikstrid.reenv?branchName=master)](https://dev.azure.com/strid/reenv/_build/latest?definitionId=27&branchName=master)
 
 [dotenv-cli](https://github.com/entropitor/dotenv-cli) implementation in native ReasonML. The goal is to have feature parity with [dotenv](https://github.com/motdotla/dotenv) but be implemented in Reason. If there is a feature missing please log an issue.
 
