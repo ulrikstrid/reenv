@@ -1,2 +1,10 @@
-(executable (name ReenvApp) (public_name reenv)
-    (libraries reenv.lib cmdliner) (package reenv)) (env (_ (flags (:standard -w -39)))) 
+(executable
+ (name ReenvApp)
+ (public_name reenv)
+ (libraries reenv.lib cmdliner)
+ (package reenv))
+
+(env
+ (_
+  (flags
+   (:standard -w -39))))

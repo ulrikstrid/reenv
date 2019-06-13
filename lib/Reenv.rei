@@ -1,17 +1,9 @@
 module Util = Util;
+module Env = Env;
 
 exception Missing_keys(string);
 
-type t;
-
-let make: unit => t;
-
-let get_opt: (string, t) => option(string);
-let get_exn: (string, t) => string;
-
-let array_of_t: t => array((string, string));
-
-let checkSafe: (~safeFile: string, t) => unit;
+let checkSafe: (~safeFile: string, list(string)) => unit;
 
 let main:
   (
@@ -21,5 +13,3 @@ let main:
     list(string)
   ) =>
   'a;
-
-let t_of_in_channel: (t, in_channel) => t;
