@@ -39,4 +39,3 @@ jobs:
         inputs:
           targetPath: "_release"
           ArtifactName: ${{ parameters.platform }}
-      - template: ./utils/publish-build-cache.yml
