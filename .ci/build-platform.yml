@@ -32,9 +32,9 @@ jobs:
       - template: utils/run-tests.yml
         parameters:
           platform: ${{ parameters.platform }}
-      - template: ./utils/publish-build-cache.yml
       - script: "esy release"
         displayName: "esy release"
+      - template: ./utils/publish-build-cache.yml
       - task: PublishPipelineArtifact@0
         displayName: "Publish Artifact: ${{ parameters.platform }}"
         inputs:
