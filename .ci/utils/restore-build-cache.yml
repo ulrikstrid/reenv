@@ -6,7 +6,7 @@ steps:
       key: |
         esy
         $(Agent.OS)
-        $(Pipeline.Workspace)/esy.lock/index.json
+        $(Build.SourcesDirectory)/esy.lock/index.json
       path: $(Pipeline.Workspace)/.esy_cache
     displayName: '[Cache][Restore] Download esy cache'
 
