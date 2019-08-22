@@ -1,0 +1,57 @@
+name: Build master
+
+on: [push]
+jobs:
+  build:
+    runs-on: ${{ matrix.os }}-latest
+    strategy:
+      matrix:
+        os: [ubuntu, windows, macOS]
+    steps:
+      - uses: actions/setup-node@v1
+        with:
+          version: 10
+      - uses: actions/checkout@v1
+      - name: Install esy
+        run: npm install -g esy@0.5.8
+      - name: Install dependencies
+        run: esy install
+      - name: Build
+        run: esy build
+      - name: Run tests
+        run: esy test
+      - name: esy release
+        run: esy release
+      - uses: actions/upload-artifact@master
+        with:
+          name: ${{ matrix.os }}-release
+          path: _release
+  package:
+    runs-on: ubuntu-latest
+    needs: [build]
+    steps:
+      - uses: actions/download-artifact@master
+        with:
+          name: ubuntu-release
+          path: _release/Linux
+
+      - uses: actions/download-artifact@master
+        with:
+          name: macOS-release
+          path: _release/macOS
+
+      - uses: actions/download-artifact@master
+        with:
+          name: windows-release
+          path: _release/Windows
+
+      - name: prepare release
+        run: node .ci/pipelines-release.js
+
+      - name: npm pack
+        run: npm pack _release
+
+      - uses: actions/upload-artifact@master
+        with:
+          name: Release
+          path: _release
