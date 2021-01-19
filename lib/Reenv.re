@@ -14,9 +14,7 @@ let checkSafe = (~safeFile, envFiles) => {
   };
 };
 
-let main = (~envFiles, ~safeFile, ~command, argv) => {
-  let programArgs = Array.of_list([command, ...argv]);
-
+let get_environment = (~safeFile=?, ~envFiles) => {
   let () =
     switch (safeFile) {
     | Some(safeFile) => checkSafe(~safeFile, envFiles)
@@ -25,7 +23,14 @@ let main = (~envFiles, ~safeFile, ~command, argv) => {
 
   let environment = Env.make(envFiles) |> Env.to_array;
 
-  try (Unix.execvpe(command, programArgs, environment)) {
+  environment;
+};
+
+let main = (~safeFile=?, ~envFiles, ~command, argv) => {
+  let programArgs = Array.of_list([command, ...argv]);
+  let environment = get_environment(~envFiles, ~safeFile?);
+
+  try(Unix.execvpe(command, programArgs, environment)) {
   | Unix.Unix_error(error, _method, _program) =>
     print_endline("Got error: " ++ Unix.error_message(error));
     exit(1);

@@ -1,4 +1,4 @@
 (library
  (name Reenv)
- (public_name reenv.lib)
+ (public_name reenv)
  (libraries unix re))

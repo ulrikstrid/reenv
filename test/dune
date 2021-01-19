@@ -1,5 +1,9 @@
-(executable
- (name TestReenv)
- (public_name TestReenv.exe)
- (libraries rely.lib reenv.lib)
- (ocamlopt_flags -linkall -g))
+(tests
+ (names test)
+ (deps
+  (source_tree ./fixtures))
+ (libraries alcotest junit junit_alcotest reenv)
+ (action
+  (chdir
+   %{project_root}
+   (run %{test}))))

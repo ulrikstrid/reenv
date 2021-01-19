@@ -37,7 +37,7 @@ let args = {
 };
 
 let start = (envFiles, safeFile, command, args) => {
-  Reenv.main(~envFiles, ~safeFile, ~command, args);
+  Reenv.main(~envFiles, ~safeFile?, ~command, args);
 };
 
 let () = {

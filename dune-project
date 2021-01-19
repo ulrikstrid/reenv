@@ -1,3 +1,3 @@
-(lang dune 1.6)
- (name reenv)
- (using fmt 1.1)
+(lang dune 2.5)
+
+(name reenv)

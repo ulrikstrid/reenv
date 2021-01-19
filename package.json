@@ -10,63 +10,23 @@
       ]
     }
   },
-  "buildDirs": {
-    "test": {
-      "require": [
-        "rely/lib",
-        "reenv/lib"
-      ],
-      "bin": "TestReenv.re",
-      "ocamloptFlags": [
-        "-linkall",
-        "-g"
-      ]
-    },
-    "lib": {
-      "namespace": "Reenv",
-      "require": [
-        "unix",
-        "re"
-      ]
-    },
-    "executable": {
-      "require": [
-        "reenv/lib",
-        "cmdliner"
-      ],
-      "bin": {
-        "reenv": "ReenvApp.re"
-      },
-      "rawBuildConfig": [
-        "(package reenv)"
-      ],
-      "rawBuildConfigFooter": [
-        "(env (_ (flags (:standard -w -39))))"
-      ]
-    }
-  },
   "scripts": {
-    "test": "esy x TestReenv.exe",
+    "test": "esy dune build @runtest",
     "doc": "esy dune build @doc",
     "format": "esy dune build @fmt --auto-promote"
   },
   "dependencies": {
-    "@opam/dune": "*",
     "@esy-ocaml/reason": "*",
-    "refmterr": "*",
-    "ocaml": "^4.6.0",
-    "pesy": "*",
-    "@reason-native/pastel": "*",
-    "@reason-native/rely": "*",
+    "@opam/dune": "^2.6.0",
     "@opam/cmdliner": "*",
-    "@opam/re": "*"
-  },
-  "resolutions": {
-    "pesy": "esy/pesy#3d8a183"
+    "@opam/re": "*",
+    "ocaml": "^4.8.0"
   },
   "devDependencies": {
-    "@opam/merlin": "*",
-    "ocaml": "~4.6.0",
-    "@opam/odoc": "1.4.0"
+    "@opam/ocamlformat": "*",
+    "@opam/ocaml-lsp-server": "ocaml/ocaml-lsp:ocaml-lsp-server.opam",
+    "@opam/odoc": "*",
+    "@reason-native/rely": "*",
+    "refmterr": "*"
   }
 }

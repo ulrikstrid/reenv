@@ -1,3 +1,8 @@
 {
-  "editor.renderWhitespace": "all"
+  "editor.renderWhitespace": "all",
+  "ocaml.sandbox": {
+    "kind": "custom",
+    "template": "$prog $args"
+  },
+  "nixEnvSelector.nixShellConfig": "${workspaceRoot}/shell.nix"
 }

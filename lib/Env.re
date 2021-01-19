@@ -34,23 +34,21 @@ let make = envFiles => {
 
   let table = EnvHashtbl.create(Array.length(curEnv));
   let f = item =>
-    try (
-      {
-        let idx = String.index(item, '=');
-        let name = String.sub(item, 0, idx);
-        let value = String.sub(item, idx + 1, String.length(item) - idx - 1);
+    try({
+      let idx = String.index(item, '=');
+      let name = String.sub(item, 0, idx);
+      let value = String.sub(item, idx + 1, String.length(item) - idx - 1);
 
-        let nextValue =
-          EnvHashtbl.find_opt(table, name)
-          |> (
-            fun
-            | Some(prevValue) => String.concat(":", [prevValue, value])
-            | None => value
-          );
+      let nextValue =
+        EnvHashtbl.find_opt(table, name)
+        |> (
+          fun
+          | Some(prevValue) => String.concat(":", [prevValue, value])
+          | None => value
+        );
 
-        EnvHashtbl.replace(table, name, nextValue);
-      }
-    ) {
+      EnvHashtbl.replace(table, name, nextValue);
+    }) {
     | Not_found => ()
     };
 
@@ -63,6 +61,11 @@ let to_array = env => {
   let e = Array.of_list(EnvHashtbl.fold(f, env, []));
 
   e;
+};
+
+let to_tuple_list = env => {
+  let f = (name: string, value: string, items) => [(name, value), ...items];
+  EnvHashtbl.fold(f, env, []);
 };
 
 let get_env = (key, env) => {
